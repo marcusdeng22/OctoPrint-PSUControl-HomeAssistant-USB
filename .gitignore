@@ -3,3 +3,9 @@ OctoPrint_*.egg-info
 *.swp
 __pycache__
 *.zip
+
+bin/
+lib/
+lib64
+pyvenv.cfg
+share/

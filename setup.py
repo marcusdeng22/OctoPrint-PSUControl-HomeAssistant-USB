@@ -3,14 +3,14 @@ import setuptools
 
 ########################################################################################################################
 
-plugin_identifier = "psucontrol_homeassistant"
+plugin_identifier = "psucontrol_homeassistant_usb"
 plugin_package = "octoprint_%s" % plugin_identifier
-plugin_name = "OctoPrint-PSUControl-HomeAssistant"
+plugin_name = "OctoPrint-PSUControl-HomeAssistant-USB"
 plugin_version = "1.0.5"
-plugin_description = "Adds Home Assistant support to OctoPrint-PSUControl as a sub-plugin"
-plugin_author = "Erik de Keijzer"
-plugin_author_email = "erik.de.keijzer@gmail.com"
-plugin_url = "https://github.com/edekeijzer/OctoPrint-PSUControl-HomeAssistant"
+plugin_description = "Adds Home Assistant support and USB power control to OctoPrint-PSUControl as a sub-plugin"
+plugin_author = "Marcus"
+plugin_author_email = "marcus@gmail.com"
+plugin_url = "https://github.com/marcusdeng22/OctoPrint-PSUControl-HomeAssistant-USB"
 plugin_license = "AGPLv3"
 plugin_additional_data = []
 

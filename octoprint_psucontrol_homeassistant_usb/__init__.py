@@ -1,7 +1,7 @@
 # coding=utf-8
 from __future__ import absolute_import
 
-__author__ = "Erik de Keijzer <erik.de.keijzer@gmail.com>"
+__author__ = "Marcus"
 __license__ = "GNU Affero General Public License http://www.gnu.org/licenses/agpl.html"
 __copyright__ = "Copyright (C) 2021 Erik de Keijzer - Released under terms of the AGPLv3 License"
 
@@ -11,7 +11,7 @@ from requests.packages.urllib3.exceptions import InsecureRequestWarning
 
 requests.packages.urllib3.disable_warnings(InsecureRequestWarning)
 
-class PSUControl_HomeAssistant(octoprint.plugin.StartupPlugin,
+class PSUControl_HomeAssistant_USB(octoprint.plugin.StartupPlugin,
                          octoprint.plugin.RestartNeedingPlugin,
                          octoprint.plugin.TemplatePlugin,
                          octoprint.plugin.SettingsPlugin):
@@ -153,31 +153,32 @@ class PSUControl_HomeAssistant(octoprint.plugin.StartupPlugin,
             dict(type="settings", custom_bindings=False)
         ]
 
-    def get_update_information(self):
-        return dict(
-            psucontrol_homeassistant=dict(
-                displayName="PSU Control - Home Assistant",
-                displayVersion=self._plugin_version,
+#    def get_update_information(self):
+#        pass
+#        return dict(
+#            psucontrol_homeassistant=dict(
+#                displayName="PSU Control - Home Assistant",
+#                displayVersion=self._plugin_version,
 
                 # version check: github repository
-                type="github_release",
-                user="edekeijzer",
-                repo="OctoPrint-PSUControl-HomeAssistant",
-                current=self._plugin_version,
+#                type="github_release",
+#                user="edekeijzer",
+#                repo="OctoPrint-PSUControl-HomeAssistant",
+#                current=self._plugin_version,
 
                 # update method: pip w/ dependency links
-                pip="https://github.com/edekeijzer/OctoPrint-PSUControl-HomeAssistant/archive/{target_version}.zip"
-            )
-        )
+#                pip="https://github.com/edekeijzer/OctoPrint-PSUControl-HomeAssistant/archive/{target_version}.zip"
+#            )
+#        )
 
-__plugin_name__ = "PSU Control - Home Assistant"
+__plugin_name__ = "PSU Control - Home Assistant w/ USB"
 __plugin_pythoncompat__ = ">=3,<4"
 
 def __plugin_load__():
     global __plugin_implementation__
-    __plugin_implementation__ = PSUControl_HomeAssistant()
+    __plugin_implementation__ = PSUControl_HomeAssistant_USB()
 
-    global __plugin_hooks__
-    __plugin_hooks__ = {
-        "octoprint.plugin.softwareupdate.check_config": __plugin_implementation__.get_update_information
-    }
+#    global __plugin_hooks__
+#    __plugin_hooks__ = {
+#        "octoprint.plugin.softwareupdate.check_config": __plugin_implementation__.get_update_information
+#    }
