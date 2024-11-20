@@ -8,6 +8,8 @@ __copyright__ = "Copyright (C) 2021 Erik de Keijzer - Released under terms of th
 import octoprint.plugin
 import requests
 from requests.packages.urllib3.exceptions import InsecureRequestWarning
+import subprocess
+import time
 
 requests.packages.urllib3.disable_warnings(InsecureRequestWarning)
 
@@ -24,7 +26,7 @@ class PSUControl_HomeAssistant_USB(octoprint.plugin.StartupPlugin,
             address = '',
             api_key = '',
             entity_id = '',
-            verify_certificate = True,
+            verify_certificate = False,
         )
 
     def on_settings_initialized(self):
@@ -105,13 +107,28 @@ class PSUControl_HomeAssistant_USB(octoprint.plugin.StartupPlugin,
         data = '{"entity_id":"' + _entity_id + '"}'
         self.send(cmd, data)
 
+    def change_usb_state(self, state):
+        cmd = "uhubctl -l 2 -a {}"
+        if state.upper() == "ON":
+            cmd = cmd.format(1)
+        else:
+            cmd = cmd.format(0)
+
+        try:
+            p = subprocess.run(cmd.split(" "))
+            time.sleep(5)	#delay for things to boot
+        except Exception as e:
+            self._logger.error("failed to switch USB state: {}".format(e))
+
     def turn_psu_on(self):
         self._logger.debug("Switching PSU On")
         self.change_psu_state('on')
+        self.change_usb_state("on")
 
     def turn_psu_off(self):
         self._logger.debug("Switching PSU Off")
         self.change_psu_state('off')
+        self.change_usb_state("off")
 
     def get_psu_state(self):
         _entity_id = self.config['entity_id']
